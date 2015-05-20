@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property NSArray* StudentNames;
 @end
 
 NSString* CELL_NAME= @"Cell";
@@ -18,6 +18,7 @@ NSString* CELL_NAME= @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setStudentNames: @[@"EJ", @"Liz", @"Jared", @"Misti", @"Ryan", @"Megan"]];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -31,15 +32,19 @@ NSString* CELL_NAME= @"Cell";
 }
 
 -(NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section{
-    return 10;
+    return [[self StudentNames] count];
 }
 
 -(UITableViewCell*) tableView: (UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CELL_NAME];
+    // if no reusable cell exists, create a new one
+    // nil means empty value
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:CELL_NAME];
     }
-    [[cell textLabel] setText: @"Hello World"];
+    NSInteger currentRow = [indexPath row];
+    NSString* currentStudent = [[self StudentNames] objectAtIndex: currentRow];
+    [[cell textLabel] setText: currentStudent];
     return cell;
 }
 
