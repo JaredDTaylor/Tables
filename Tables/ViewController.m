@@ -9,7 +9,13 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *txtStudentName;
+
 @property NSArray* StudentNames;
+
+@property (strong, nonatomic) IBOutlet UITableView *tblStudents;
+
 @end
 
 NSString* CELL_NAME= @"Cell";
@@ -20,6 +26,16 @@ NSString* CELL_NAME= @"Cell";
     [super viewDidLoad];
     [self setStudentNames: @[@"EJ", @"Liz", @"Jared", @"Misti", @"Ryan", @"Megan"]];
     // Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)txtAddNewStudent:(id)sender {
+    NSString* name = [[self txtStudentName] text];
+    // reads the information from the text box
+    
+    [self setStudentNames: [[self StudentNames] arrayByAddingObject: name]];
+    // gets an array, adding it to the previous array, then replacing it with a new object
+    
+    [[self tblStudents] reloadData];
+    // adds new text with each keystroke
 }
 
 - (void)didReceiveMemoryWarning {
